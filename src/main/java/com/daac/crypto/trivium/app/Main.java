@@ -10,8 +10,6 @@ public class Main {
 
     public static void main(String [] args) throws Exception    {
 
-        TriviumFxApp app = new TriviumFxApp();
-
         String initVectorString = RandomStringUtils.randomAlphanumeric(20);
         System.out.println("Init Vector String: \n" + initVectorString);
         System.out.println("");
