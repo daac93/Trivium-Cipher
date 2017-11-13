@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<TabPane fx:id="rootPane" fx:controller="com.daac.crypto.trivium.app.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.152">
+  <tabs>
+    <Tab text="Encrypt">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="767.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane maxHeight="200.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1278.0">
+                           <children>
+                              <Pane prefHeight="766.0" prefWidth="1280.0">
+                                 <children>
+                                    <TextField fx:id="encrypt_initVector" layoutX="12.0" layoutY="30.0" prefHeight="27.0" prefWidth="385.0" />
+                                    <Label layoutX="15.0" layoutY="91.0" text="Text to Encrypt" />
+                                    <Label layoutX="14.0" layoutY="6.0" text="Init Vector" />
+                                    <TextArea fx:id="textToEncrypt" layoutX="14.0" layoutY="112.0" prefHeight="79.0" prefWidth="568.0" />
+                                    <Button fx:id="btnEncrypt" layoutX="1157.0" layoutY="17.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="98.0" text="Encrypt" onMouseClicked="#startEncryption"/>
+                                    <ChoiceBox fx:id="encrypt_speed" layoutX="968.0" layoutY="27.0" prefWidth="150.0" />
+                                    <Label layoutX="660.0" layoutY="87.0" text="Encrypted Text" />
+                                    <TextArea fx:id="encryptedText" editable="false" layoutX="655.0" layoutY="111.0" prefHeight="79.0" prefWidth="568.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1278.0">
+                           <children>
+                              <VBox prefHeight="557.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <GridPane fx:id="registerOneGridPane" minHeight="180.0">
+                                      <columnConstraints>
+                                      </columnConstraints>
+                                      <rowConstraints>
+
+                                      </rowConstraints>
+                                    </GridPane>
+                                    <Separator layoutX="10.0" layoutY="270.0" prefWidth="800.0" />
+                                    <GridPane fx:id="registerTwoGridPane" minHeight="180.0">
+                                      <columnConstraints>
+                                      </columnConstraints>
+                                      <rowConstraints>
+
+                                      </rowConstraints>
+                                    </GridPane>
+                                    <Separator layoutX="10.0" layoutY="87.0" prefWidth="800.0" />
+                                    <GridPane fx:id="registerThreeGridPane" minHeight="180.0">
+                                      <columnConstraints>
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Decrypt">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="767.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Pane prefHeight="766.0" prefWidth="1280.0">
+                                 <children>
+                                    <TextField fx:id="decrypt_initVector" layoutX="12.0" layoutY="30.0" prefHeight="27.0" prefWidth="385.0" />
+                                    <Label layoutX="15.0" layoutY="91.0" text="Text to Decrypt" />
+                                    <Label layoutX="14.0" layoutY="6.0" text="Init Vector" />
+                                    <TextArea fx:id="textToDecrypt" layoutX="14.0" layoutY="112.0" prefHeight="255.0" prefWidth="1247.0" />
+                                    <Button fx:id="btnDecrypt" layoutX="1157.0" layoutY="17.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="98.0" text="Decrypt" onMouseClicked="#startDecryption" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Pane prefHeight="384.0" prefWidth="1279.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="6.0" text="Decrypted Text" />
+                                    <TextArea fx:id="decryptedText" layoutX="14.0" layoutY="34.0" prefHeight="329.0" prefWidth="1244.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
