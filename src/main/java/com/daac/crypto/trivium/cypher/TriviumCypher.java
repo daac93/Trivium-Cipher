@@ -34,13 +34,11 @@ public class TriviumCypher {
     private Register registerTwo;
     private Register registerThree;
 
-    private String initVectorString;
     private String secretKeyString;
 
     public TriviumCypher(String initVectorString) throws RegisterLoadException {
         registers = new ArrayList();
         this.secretKeyString = "Test Key for Trivium";
-        this.initVectorString = initVectorString;
 
         registerOne = new Register(93, 69, 66, 91, 92);
         registerTwo = new Register(84, 78, 69, 82,83);
@@ -80,10 +78,6 @@ public class TriviumCypher {
         return result;
     }
 
-    public Map decrypt(String stringToDecrypt) {
-        return encrypt(stringToDecrypt);
-    }
-
     private void warmUp(int cycles)  {
         for(int i = 0; i < cycles; i++) {
             generateNextBit();
@@ -102,8 +96,26 @@ public class TriviumCypher {
         registerThree.shift(registerTwoOutput);
 
         byte result = (byte) (registerOneOutput ^ registerTwoOutput ^ registerThreeOutput);
-
+        printRegisters();
         return result;
+    }
+
+    private byte generateNextByteAndUpdateUI(int sleep) {
+        byte nextByte = 0x00;
+        byte helper;
+
+        for(int i = 0; i < 8; i++) {
+            helper = generateNextBit();
+
+            try {
+                Thread.sleep(sleep);
+            }   catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+            nextByte |= (helper << i);
+        }
+
+        return nextByte;
     }
 
     private byte generateNextByte() {
@@ -124,23 +136,29 @@ public class TriviumCypher {
         return (byte) (byteToCypher ^ cypheringByte);
     }
 
-    public String getInitVectorString() {
-        return initVectorString;
-    }
-
-    public void setInitVectorString(String initVectorString) {
-        this.initVectorString = initVectorString;
-    }
-
-    public String getSecretKeyString() {
-        return secretKeyString;
-    }
-
-    public void setSecretKeyString(String secretKeyString) {
-        this.secretKeyString = secretKeyString;
+    public byte cypherByte(byte byteToCypher, int sleep)  {
+        byte cypheringByte = generateNextByteAndUpdateUI(sleep);
+        return (byte) (byteToCypher ^ cypheringByte);
     }
 
     public List<Register> getRegisters() {
         return registers;
+    }
+
+    private void printRegisters()   {
+        int i = 1;
+        StringBuilder sb = new StringBuilder();
+
+        for(Register register : registers)  {
+            sb.append("Register ");
+            sb.append(i);
+            sb.append(": \n");
+            sb.append(register.toString());
+            sb.append("\n\n");
+            i++;
+        }
+        sb.append("\n\n\n\n\n");
+
+        System.out.println(sb.toString());
     }
 }

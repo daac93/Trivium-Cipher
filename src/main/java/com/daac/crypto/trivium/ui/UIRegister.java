@@ -50,7 +50,7 @@ public class UIRegister {
         return gridPane;
     }
 
-    public void updateRegisterPane(Register register)    {
+    public synchronized void updateRegisterPane(Register register)    {
         List<FlipFlop> flipFlops = register.getFlipFlops();
         for(int i = 0; i < flipFlops.size(); i++) {
             registerValues[i].setText(flipFlops.get(i).toString());

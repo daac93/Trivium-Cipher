@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -68,66 +71,10 @@ public class TriviumFxApp extends Application {
         }   catch (IOException ioe) {
             ioe.printStackTrace();
         }
-
-        /*AnchorPane rootPane = new AnchorPane();
-
-        VBox elementsContainer = new VBox();
-
-        UIRegister r1 = new UIRegister(93);
-        UIRegister r2 = new UIRegister(84);
-        UIRegister r3 = new UIRegister(111);
-
-
-        HBox configurationBox = new HBox();
-        Label labelInitVector = new Label("Init Vector: ");
-        configurationBox.getChildren().add(labelInitVector);
-        TextField inputInitVector = new TextField();
-        configurationBox.getChildren().add(inputInitVector);
-        Button buttonStartEncryption = new Button("Start Encryption");
-        configurationBox.getChildren().add(buttonStartEncryption);
-
-        elementsContainer.getChildren().add(configurationBox);
-        elementsContainer.getChildren().add(new Separator());
-
-
-        VBox registersBox = new VBox();
-        registersBox.getChildren().add(r1.buildRegisterPane(2, 47, "UIRegister One"));
-        registersBox.getChildren().add(new Separator());
-        registersBox.getChildren().add(r2.buildRegisterPane(2, 42, "UIRegister Two"));
-        registersBox.getChildren().add(new Separator());
-        registersBox.getChildren().add(r3.buildRegisterPane(2, 56, "UIRegister Three"));
-
-        elementsContainer.getChildren().add(registersBox);
-
-
-        rootPane.getChildren().addAll(elementsContainer);
-
-        Scene scene = new Scene(rootPane);
-        scene.getStylesheets().add("css/styles.css");
-        primaryStage.setScene(scene);
-
-
-
-        primaryStage.show();*/
     }
 
     public static void main(String [] args) {
         Application.launch(args);
     }
 
-    private static GridPane createRegisterGridPane(int registerSize)    {
-        GridPane newGridPane = new GridPane();
-
-        Label [] titles = new Label [registerSize];
-        Label [] registerValues = new Label[registerSize];
-
-        for(int i = 0; i < registerSize; i++)   {
-            titles[i] = new Label(String.valueOf(i + 1));
-            registerValues[i] = new Label("0");
-            newGridPane.add(titles[i], i, 0, 1, 1);
-            newGridPane.add(registerValues[i], i, 1, 1, 1);
-        }
-
-        return newGridPane;
-    }
 }

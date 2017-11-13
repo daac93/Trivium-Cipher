@@ -89,4 +89,15 @@ public class Register {
     public List<FlipFlop> getFlipFlops() {
         return flipFlops;
     }
+
+    @Override
+    public String toString()    {
+        StringBuilder sb = new StringBuilder();
+
+        for(FlipFlop current : flipFlops)   {
+            sb.append(current.toString());
+        }
+
+        return sb.toString();
+    }
 }

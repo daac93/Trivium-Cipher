@@ -3,8 +3,8 @@ package com.daac.crypto.trivium.app;
 import com.daac.crypto.trivium.pojo.Register;
 import com.daac.crypto.trivium.ui.UIRegister;
 import com.daac.crypto.trivium.utils.TriviumCypherThread;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -17,6 +17,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Controller implements Initializable {
 
@@ -55,37 +57,48 @@ public class Controller implements Initializable {
 
         encrypt_speed.getItems().addAll("Slow", "Fast");
         encrypt_speed.getSelectionModel().selectFirst();
-
-        btnEncrypt.setOnAction(new EventHandler<ActionEvent>()  {
-            @Override
-            public void handle(ActionEvent t)   {
-                startEncryption();
-            }
-        });
     }
 
 
     public void startEncryption() {
-        btnEncrypt.setDisable(true);
-
         String initVector = RandomStringUtils.randomAlphanumeric(20);
         String text = textToEncrypt.getText();
         String encryptionSpeed = (String) encrypt_speed.getSelectionModel().getSelectedItem();
 
         encrypt_initVector.setText(initVector);
 
+        Lock uiLock = new ReentrantLock();
+
         TriviumCypherThread triviumCypherThread = new TriviumCypherThread(initVector);
         triviumCypherThread.setCypheringSpeed(encryptionSpeed);
         triviumCypherThread.setAppController(this);
         triviumCypherThread.setStringToCypher(text);
-        new Thread(triviumCypherThread).start();
-        //triviumCypherThread.startUpdateDaemonTask();
-        /*Thread worker = new Thread()    {
-            public void run()   {
-                Platform.runLater(triviumCypherThread.startEncryption());
+
+
+        Task task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                while (!triviumCypherThread.isDone()) {
+                    if(uiLock.tryLock()) {
+                        Platform.runLater(() -> {
+                            updateRegistersState(triviumCypherThread.getRegisters());
+                        });
+                        uiLock.unlock();
+                    }
+                }
+                return null;
             }
-        };*/
-        //worker.start();
+        };
+
+        triviumCypherThread.setUiLock(uiLock);
+
+        new Thread(triviumCypherThread, "Trivium Cypher Thread").start();
+        Thread th = new Thread(task);
+        th.start();
+
+
+
+
     }
 
 
